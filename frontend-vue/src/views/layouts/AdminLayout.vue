@@ -7,6 +7,10 @@
 </template>
 
 <script>
+import HomeFooter from "./components/Footer.vue";
+import HomeAppBar from "./components/AppBar.vue";
+import HomeView from "./components/BaseView.vue";
+
 export default {
   name: "StartView",
   data: () => ({
@@ -15,13 +19,14 @@ export default {
   }),
   methods: {
     showDrawer(val) {
+      console.log(val);
       this.drawer = val;
     },
   },
   components: {
-    HomeAppBar: () => import("./components/AppBar.vue"),
-    HomeFooter: () => import("./components/Footer.vue"),
-    HomeView: () => import("./components/BaseView.vue"),
+    HomeFooter,
+    HomeAppBar,
+    HomeView,
   },
 };
 </script>

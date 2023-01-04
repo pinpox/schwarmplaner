@@ -1,0 +1,28 @@
+:root {
+  --background-dark: #2a313b;
+  --background-light: #88d6e2;
+  --font-dark: #000;
+  --font-light: #fff;
+}
+
+@font-face {
+  font-family: "Patrick Hand";
+  font-weight: normal;
+  font-style: normal;
+  font-display: auto;
+  unicode-range: U+000-5FF;
+  src: local("PatrickHand-Regular.ttf"),
+    url("../fonts/PatrickHand-Regular.woff") format("woff"),
+    url("../fonts/PatrickHand-Regular.woff") format("woff");
+}
+
+body {
+  background-color: var(--background-dark);
+  color: var(--font-light);
+  font-family: "Patrick Hand";
+
+  .light-theme {
+    background-color: var(--background-light);
+    color: var(--font-dark);
+  }
+}

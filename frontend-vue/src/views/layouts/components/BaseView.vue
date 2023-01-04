@@ -1,12 +1,6 @@
 <template>
   <v-main>
-    <v-navigation-drawer
-      v-if="useDrawer"
-      absolute
-      right
-      v-model="showDrawer"
-      :permanent="$vuetify.breakpoint.mdAndUp"
-    >
+    <v-navigation-drawer v-if="useDrawer" absolute right v-model="showDrawer">
       <v-list nav dense>
         <v-list-item-group active-class="deep-purple--text text--accent-4">
           <v-list-item to="/admin">
@@ -32,9 +26,8 @@
         </div>
       </template>
     </v-navigation-drawer>
-    <v-fade-transition mode="out-in">
-      <router-view />
-    </v-fade-transition>
+
+    <router-view></router-view>
   </v-main>
 </template>
 

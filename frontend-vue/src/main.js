@@ -1,27 +1,25 @@
-import Vue from "vue";
-import VueCompositionAPI from "@vue/composition-api";
-
-import VueCookie from "vue-cookie";
-
+import { createApp } from "vue";
 import App from "./App.vue";
-
 import router from "./plugins/router";
-import vuetify from "./plugins/vuetify";
-import store from "./stores";
-
-// eslint-disable-next-line no-unused-vars
-import base from "./plugins/base";
-// eslint-disable-next-line no-unused-vars
-import custom from "./plugins/custom";
-
+import VueLogger from "vuejs3-logger";
+import "./assets/style/main.scss";
+import "./index.css";
 import "@mdi/font/css/materialdesignicons.css";
 import moment from "moment";
+import "vuetify/styles";
+import { createVuetify } from "vuetify";
+import * as components from "vuetify/components";
+import * as directives from "vuetify/directives";
+import { createPinia } from "pinia";
 
-import VueLogger from "vuejs-logger";
+const vuetify = createVuetify({
+  components,
+  directives,
+});
 
 const loggerOptions = {
   isEnabled: true,
-  logLevel: process.env.NODE_ENV === "production" ? "error" : "debug",
+  logLevel: /* isProduction ? "error" : */ "debug",
   stringifyArguments: false,
   showLogLevel: true,
   showMethodName: true,
@@ -29,20 +27,12 @@ const loggerOptions = {
   showConsoleColors: true,
 };
 
-Vue.prototype.moment = moment;
-Vue.config.productionTip = false;
+const pinia = createPinia();
 
-// Vue.use(VeeValidate)
-Vue.use(VueCompositionAPI);
-
-Vue.use(VueLogger, loggerOptions);
-Vue.use(VueCookie);
-
-const app = new Vue({
-  router,
-  vuetify,
-  store,
-  render: (h) => h(App),
-}).$mount("#app");
-
-window.App = app;
+createApp(App)
+  .use(router)
+  .use(vuetify)
+  .use(moment)
+  .use(pinia)
+  .use(VueLogger, loggerOptions)
+  .mount("#app");

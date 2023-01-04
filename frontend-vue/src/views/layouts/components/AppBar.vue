@@ -8,20 +8,8 @@
       height="80"
       color="secondary"
     >
-      <base-img
-        :src="require(`@/assets/zvlog.svg`)"
-        class="mr-3 hidden-xs-only filter-accent2"
-        contain
-        max-width="46"
-        width="100%"
-        @click="toStart"
-      />
-      <base-heading title="SCHWARMPLANER" />
       <v-spacer />
-      <v-app-bar-nav-icon
-        v-if="!$vuetify.breakpoint.mdAndUp"
-        @click.stop="drawer = !drawer"
-      ></v-app-bar-nav-icon>
+      <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
     </v-app-bar>
   </div>
 </template>

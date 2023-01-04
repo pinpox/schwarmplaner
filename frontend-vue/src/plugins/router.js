@@ -1,22 +1,21 @@
-import Vue from "vue";
-import Router from "vue-router";
-
-Vue.use(Router);
+import { createRouter, createWebHistory } from "vue-router";
+import AdminLayout from "../views/layouts/AdminLayout.vue";
+import AdminDashboard from "../views/admin/dashboard/Index";
 
 const routes = [
   {
-    path: "/",
+    path: "",
     name: "",
     component: () => import("../views/login/Index"),
   },
   {
     path: "/admin",
-    component: () => import("../views/layouts/AdminLayout.vue"),
+    component: AdminLayout,
     children: [
       {
-        path: "/",
+        path: "",
         name: "admin",
-        component: () => import("../views/admin/dashboard/Index"),
+        component: AdminDashboard,
       },
       {
         path: "/shifts",
@@ -40,7 +39,7 @@ const routes = [
     component: () => import("../views/layouts/UserLayout.vue"),
     children: [
       {
-        path: "/",
+        path: "",
         name: "user",
         component: () => import("../views/user/dashboard/Index"),
       },
@@ -78,10 +77,8 @@ const routes = [
     ],
   },
 ];
-
-const router = new Router({
-  base: process.env.BASE_URL || "/",
-  mode: "history",
+const router = createRouter({
+  history: createWebHistory(process.env.BASE_URL),
   routes,
 });
 
