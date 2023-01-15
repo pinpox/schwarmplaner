@@ -27,6 +27,11 @@ module.exports = (sequelize, DataTypes) => {
     type: {
       type: DataTypes.STRING,
       allowNull: false
+    },
+    minimalHours: {
+      type: DataTypes.TINYINT,
+      allowNull: false,
+      default: 8
     }
   });
 
