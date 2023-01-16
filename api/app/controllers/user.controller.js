@@ -5,7 +5,8 @@ const {
   handleCustomValidationError
 } = require('../helpers/response');
 const db = require('../models');
-const User = db.User;
+
+const { User } = db;
 const { logger } = require('../helpers/logger');
 const { response } = require('express');
 
@@ -29,7 +30,7 @@ exports.create = (req, res) => {
     return;
   }
   if (!req.body.lastname) {
-    jandleInternalError(res, 'missing data');
+    handleInternalError(res, 'missing data');
     moduleLogger.error('no lastname in data');
     return;
   }
@@ -80,12 +81,12 @@ exports.userExists = (req, res) => {
     return validationResponse;
   }
 
-  let reqEmail = req.query.email;
+  const reqEmail = req.query.email;
 
   if (!reqEmail) {
     handleInternalError(res, 'no email in query paramter');
     moduleLogger.error('no email in query paramter');
-    return;
+    return null;
   }
 
   User.findAll({
@@ -95,7 +96,7 @@ exports.userExists = (req, res) => {
   })
     .then(data => {
       moduleLogger.debug(data);
-      if (data.length == 0) {
+      if (data.length === 0) {
         handleSuccess(res, 'no user found', {
           user: {
             found: false
@@ -123,14 +124,14 @@ exports.valid = (req, res) => {
     return validationResponse;
   }
 
-  let reqSurname = req.query.surname;
+  const reqSurname = req.query.surname;
 
   if (!reqSurname) {
     handleInternalError(res, 'missing parameter');
     moduleLogger.error('no surname in query paramter');
     return;
   }
-  let reqId = req.query.id;
+  const reqId = req.query.id;
 
   if (!reqId) {
     handleInternalError(res, 'missing parameter');
@@ -145,7 +146,7 @@ exports.valid = (req, res) => {
   })
     .then(data => {
       moduleLogger.debug(data);
-      if (data.length == 0) {
+      if (data.length === 0) {
         handleSuccess(res, 'no valid surname', {
           user: {
             valid: false

@@ -1,6 +1,3 @@
-
-
-
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('user', {
     name: {
@@ -20,23 +17,21 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     role: {
-      type: DataTypes.ENUM("admin", "coordinator", "helper"),
-      defaultValue: "helper",
+      type: DataTypes.ENUM('admin', 'coordinator', 'helper'),
+      defaultValue: 'helper',
       allowNull: false
     },
     type: {
-      type: DataTypes.ENUM("crew", "ticket", "guest"),
-      defaultValue: "guest",
+      type: DataTypes.ENUM('crew', 'ticket', 'guest'),
+      defaultValue: 'guest',
       allowNull: false
     },
     minimalHours: {
       type: DataTypes.TINYINT,
       allowNull: false,
       default: 8
-    },
-
+    }
   });
 
   return User;
 };
-

@@ -1,28 +1,28 @@
 module.exports = (sequelize, DataTypes) => {
-  const Shift = sequelize.define("shift", {
+  const Shift = sequelize.define('shift', {
     name: {
       type: DataTypes.TEXT,
-      allowNull: false,
+      allowNull: false
     },
     start: {
       type: DataTypes.BIGINT,
-      allowNull: false,
+      allowNull: false
     },
     end: {
       type: DataTypes.BIGINT,
-      allowNull: false,
+      allowNull: false
     },
     color: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: false
     },
     type: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: false
     },
     amountHelper: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: false
     }
   });
 

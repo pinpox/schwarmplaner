@@ -1,7 +1,8 @@
-const dbConfig = require("../config/db.config.js");
-const Sequelize = require("sequelize");
+const Sequelize = require('sequelize');
+const dbConfig = require('../config/db.config');
 
 const { logger } = require('../helpers/logger');
+
 const moduleLogger = logger.child({ module: 'db' });
 
 const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
@@ -12,10 +13,9 @@ const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
     max: dbConfig.pool.max,
     min: dbConfig.pool.min,
     acquire: dbConfig.pool.acquire,
-    idle: dbConfig.pool.idle,
-  },
+    idle: dbConfig.pool.idle
+  }
 });
-
 
 if (moduleLogger.debug()) {
   moduleLogger.debug('DBCONFIG', dbConfig);
@@ -30,24 +30,21 @@ if (moduleLogger.debug()) {
   moduleLogger.info('DBCONFIG', data);
 }
 
-
-/////////////////////////////////////////////////////////////////
+/// //////////////////////////////////////////////////////////////
 ///  Below here DB Motels are setup and relations are set  //////
-/////////////////////////////////////////////////////////////////
+/// //////////////////////////////////////////////////////////////
 
-
-const ShiftModel = require("./shift.model.js");
-const LocationModel = require("./location.model.js");
-const UserModel = require("./user.model.js");
-
+const ShiftModel = require('./shift.model');
+const LocationModel = require('./location.model');
+const UserModel = require('./user.model');
 
 // Define models
 const Shift = ShiftModel(sequelize, Sequelize);
 const Location = LocationModel(sequelize, Sequelize);
 const User = UserModel(sequelize, Sequelize);
 
-//Define relations
-Location.hasMany(Shift, { as: "shift", foreignKey: "location_id" });
+// Define relations
+Location.hasMany(Shift, { as: 'shift', foreignKey: 'location_id' });
 
 User.belongsToMany(Shift, {
   as: 'shifts',
@@ -55,17 +52,12 @@ User.belongsToMany(Shift, {
   foreignKey: 'user_id',
   otherKey: 'shift_id',
   onDelete: 'CASCADE'
-})
-
-
-
-
-
+});
 
 module.exports = {
   sequelize,
   Sequelize,
   Shift,
   Location,
-  User,
+  User
 };

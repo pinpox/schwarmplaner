@@ -1,7 +1,9 @@
 // middleware/users.js
+const _ = require('lodash');
 const jwt = require('jsonwebtoken');
 const { logger } = require('../helpers/logger');
-const { handlePermissionError } = require('../helpers/response')
+const { handlePermissionError } = require('../helpers/response');
+
 const moduleLogger = logger.child({ module: 'authMiddleware' });
 const secretKey = process.env.SCHWARM_JWT_SECRET_KEY;
 
@@ -32,8 +34,8 @@ const isAuthenticated = async (req, res, next) => {
     const data = await verifyToken(token);
     if (data === null) {
       moduleLogger.info('Verification failed. Return error.');
-      handlePermissionError(res)
-      return false
+      handlePermissionError(res);
+      return false;
     }
 
     // get user to verify
@@ -41,8 +43,8 @@ const isAuthenticated = async (req, res, next) => {
 
     if (_.isEmpty(user)) {
       moduleLogger.info('User not found. Return error.');
-      handlePermissionError(res)
-      return false
+      handlePermissionError(res);
+      return false;
     }
 
     // data is available, it means verification succeed.
@@ -56,8 +58,8 @@ const isAuthenticated = async (req, res, next) => {
   // No authorization header exists on the incoming
   // request, return not authorized and throw a new error
   moduleLogger.info('No authorisation header. Return error.');
-  handlePermissionError(res)
-  return false
+  handlePermissionError(res);
+  return false;
 };
 
 module.exports = { isAuthenticated, verifyToken, getTokenData };

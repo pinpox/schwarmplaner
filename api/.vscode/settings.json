@@ -18,7 +18,11 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   },
-  "cSpell.words": [],
+  "cSpell.words": [
+    "SCHWARM",
+    "schwarmplaner",
+    "TINYINT"
+  ],
   "sqltools.connections": [
     {
       "mysqlOptions": {

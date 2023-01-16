@@ -1,10 +1,7 @@
+const bunyan = require('bunyan');
+const bformat = require('bunyan-format');
 
-var bunyan = require('bunyan')
-  , bformat = require('bunyan-format')
-  , formatOut = bformat({ outputMode: 'short' })
-  ;
-
-
+const formatOut = bformat({ outputMode: 'short' });
 const packageJson = require('../../package.json');
 
 const logger = bunyan.createLogger({

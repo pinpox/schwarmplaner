@@ -37,39 +37,36 @@ app.use(express.urlencoded({ extended: true })); /* bodyParser.urlencoded() is d
 
 const db = require('./models');
 
-
 const { handleSuccess, handleNotFound } = require('./helpers/response');
-const { fillDB } = require('./helpers/util');
+const { fillDB } = require('./helpers/util').default;
 
-let generateDebugData = false
+const generateDebugData = false;
 
 db.sequelize
-  .sync({ force: generateDebugData && process.env.NODE_ENV == "development", alter: !generateDebugData && process.env.NODE_ENV == "development" })
-  .then(data => {
+  .sync({
+    force: generateDebugData && process.env.NODE_ENV === 'development',
+    alter: !generateDebugData && process.env.NODE_ENV === 'development'
+  })
+  .then(() => {
     moduleLogger.debug('Database is reachable');
-    if (generateDebugData && process.env.NODE_ENV == "development")
-      fillDB();
+    if (generateDebugData && process.env.NODE_ENV === 'development') fillDB();
   })
   .catch(err => {
     moduleLogger.error('Error syncing sequelize', err);
   });
 
-
-/////////////////////////////////////////////////////////////////
+/// //////////////////////////////////////////////////////////////
 ///         Below here define routes for API               //////
-/////////////////////////////////////////////////////////////////
+/// //////////////////////////////////////////////////////////////
 
 require('./routes/shift.routes')(app);
 require('./routes/location.routes')(app);
 require('./routes/user.routes')(app);
 
-
-
-if (process.env.NODE_ENV == "development") {
+if (process.env.NODE_ENV === 'development') {
   sequelizeErd({ source: db.sequelize }).then(res => {
     writeFileSync('./db.svg', res);
   }); // sequelizeErd() returns a Promise
-
 }
 
 app.get('/', (_req, res) => {

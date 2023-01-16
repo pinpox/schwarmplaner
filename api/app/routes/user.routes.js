@@ -1,8 +1,7 @@
+const router = require('express').Router();
+const user = require('../controllers/user.controller');
+
 module.exports = app => {
-  const user = require('../controllers/user.controller.js');
-
-  var router = require('express').Router();
-
   // Retrieve a all User with calendar id
   router.get('/byCalendar', user.findByCalendarId);
 

@@ -1,12 +1,8 @@
 const router = require('express').Router();
 
 const user = require('../controllers/user.controller');
-const bubble = require('../controllers/bubble.controller');
 
 module.exports = app => {
-  // Create a new bubble
-  router.post('/register', bubble.createBubbleAndUser);
-
   // Confirm password
   router.post('/confirm', user.confirmPasswordAndLogin);
 

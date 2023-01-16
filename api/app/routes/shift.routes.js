@@ -1,8 +1,7 @@
+const router = require('express').Router();
+const shift = require('../controllers/shift.controller');
+
 module.exports = app => {
-  const shift = require('../controllers/shift.controller.js');
-
-  var router = require('express').Router();
-
   // Create a new Appointment
   router.post('/', shift.create);
 
@@ -13,8 +12,6 @@ module.exports = app => {
 
   // Delete a Appointment with id
   router.delete('/:id', shift.delete);
-
-
 
   app.use('/shift', router);
 };
