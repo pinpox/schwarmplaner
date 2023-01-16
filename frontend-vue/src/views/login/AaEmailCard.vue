@@ -1,18 +1,8 @@
 <template>
-  <LoginCard
-    :showBack="false"
-    :disabledNext="!valid"
-    v-on:next="next"
-    :loadingNext="loading"
-  >
+  <LoginCard :showBack="false" :disabledNext="!valid" v-on:next="next" :loadingNext="loading">
     <v-card-text>
       <v-form v-model="valid">
-        <v-text-field
-          v-model="email"
-          label="Email"
-          :rules="emailRules"
-          hide-details="auto"
-        ></v-text-field>
+        <v-text-field v-model="email" label="Email" :rules="emailRules" hide-details="auto"></v-text-field>
       </v-form>
     </v-card-text>
   </LoginCard>
@@ -21,7 +11,6 @@
 <script>
 import userService from "@/services/user.service";
 import LoginCard from "@/components/custom/LoginCard.vue";
-import { types } from "@/helpers/types";
 
 export default {
   name: "EmailCard",
@@ -54,22 +43,14 @@ export default {
         .emailExist(this.email)
         .then((response) => {
           let respData = response.data.data;
-          this.loading = false;
+          this.loading = true;
           let cardData = this.cardData;
           cardData.email = this.email;
           if (respData.user.found) {
-            // if admin -> show adminCard
             cardData.id = respData.user.id;
-            if (respData.user.type == types.admin) {
-              this.$emit("setCardType", "password");
-            }
-            // if user -> show UserCard
-            if (respData.user.type == types.user) {
-              this.$router.push("user");
-            }
+            this.$emit("setCardType", "password");
           } else {
-            // if unregistered -> show RegisterCard
-            this.$emit("setCardType", "register");
+            // TODO: show error (Not Found)
           }
           this.$emit("onDataChange", cardData);
         })
@@ -83,4 +64,6 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+
+</style>

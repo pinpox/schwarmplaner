@@ -1,36 +1,16 @@
 <template>
   <div>
-    <EmailCard
-      :cardData="cardData"
-      v-if="cardType == 'email'"
-      v-on:setCardType="setCardType"
-      v-on:onDataChange="onDataChange"
-    ></EmailCard>
-    <PasswordCard
-      :cardData="cardData"
-      v-if="cardType == 'password'"
-      v-on:setCardType="setCardType"
-    ></PasswordCard>
-    <RegisterCard
-      :cardData="cardData"
-      v-if="cardType == 'register'"
-      v-on:setCardType="setCardType"
-      v-on:onDataChange="onDataChange"
-    ></RegisterCard>
-    <SelectShiftsCard
-      :cardData="cardData"
-      v-if="cardType == 'shifts'"
-      v-on:setCardType="setCardType"
-      v-on:onDataChange="onDataChange"
-    ></SelectShiftsCard>
+    <EmailCard :cardData="cardData" v-if="cardType == 'email'" v-on:setCardType="setCardType"
+      v-on:onDataChange="onDataChange"></EmailCard>
+    <PasswordCard :cardData="cardData" v-if="cardType == 'password'" v-on:setCardType="setCardType"></PasswordCard>
+
   </div>
 </template>
 
 <script>
 import EmailCard from "./AaEmailCard.vue";
 import PasswordCard from "./BbPasswordCard.vue";
-import RegisterCard from "./BcRegisterCard.vue";
-import SelectShiftsCard from "./CcSelectShiftsCard.vue";
+
 
 export default {
   name: "LoginView",
@@ -50,11 +30,11 @@ export default {
   },
   components: {
     EmailCard,
-    PasswordCard,
-    RegisterCard,
-    SelectShiftsCard,
+    PasswordCard
   },
 };
 </script>
 
-<style></style>
+<style>
+
+</style>
