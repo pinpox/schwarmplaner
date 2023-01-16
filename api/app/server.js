@@ -39,10 +39,12 @@ const db = require('./models');
 
 
 const { handleSuccess, handleNotFound } = require('./helpers/response');
+const { fillDB } = require('./helpers/util');
 db.sequelize
   .sync({ alter: true })
   .then(data => {
     moduleLogger.debug('Database is reachable');
+    fillDB();
   })
   .catch(err => {
     moduleLogger.error('Error syncing sequelize', err);
