@@ -40,20 +40,19 @@ const db = require('./models');
 
 const { handleSuccess, handleNotFound } = require('./helpers/response');
 const { fillDB } = require('./helpers/util');
+
+let generateDebugData = false
+
 db.sequelize
-  .sync({ alter: true })
+  .sync({ force: generateDebugData && process.env.NODE_ENV == "development", alter: !generateDebugData && process.env.NODE_ENV == "development" })
   .then(data => {
     moduleLogger.debug('Database is reachable');
-    fillDB();
+    if (generateDebugData && process.env.NODE_ENV == "development")
+      fillDB();
   })
   .catch(err => {
     moduleLogger.error('Error syncing sequelize', err);
   });
-// // drop the table if it already exists
-// db.sequelize.sync({ force: true }).then(() => {
-//  console.log("Drop and re-sync db.");
-// });
-
 
 
 /////////////////////////////////////////////////////////////////
@@ -66,10 +65,12 @@ require('./routes/user.routes')(app);
 
 
 
-// TODO:  only in dev env
-sequelizeErd({ source: db.sequelize }).then(res => {
-  writeFileSync('./db.svg', res);
-}); // sequelizeErd() returns a Promise
+if (process.env.NODE_ENV == "development") {
+  sequelizeErd({ source: db.sequelize }).then(res => {
+    writeFileSync('./db.svg', res);
+  }); // sequelizeErd() returns a Promise
+
+}
 
 app.get('/', (_req, res) => {
   handleSuccess(res, 'API is up and running');
