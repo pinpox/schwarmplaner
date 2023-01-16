@@ -1,10 +1,9 @@
+
+
+
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('user', {
-    surname: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    lastname: {
+    name: {
       type: DataTypes.STRING,
       allowNull: false
     },
@@ -21,19 +20,23 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     role: {
-      type: DataTypes.STRING,
+      type: DataTypes.ENUM("admin", "coordinator", "helper"),
+      defaultValue: "helper",
       allowNull: false
     },
     type: {
-      type: DataTypes.STRING,
+      type: DataTypes.ENUM("crew", "ticket", "guest"),
+      defaultValue: "guest",
       allowNull: false
     },
     minimalHours: {
       type: DataTypes.TINYINT,
       allowNull: false,
       default: 8
-    }
+    },
+
   });
 
   return User;
 };
+

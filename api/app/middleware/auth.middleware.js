@@ -1,8 +1,7 @@
 // middleware/users.js
-const _ = require('lodash');
 const jwt = require('jsonwebtoken');
 const { logger } = require('../helpers/logger');
-const {  handlePermissionError } = require('../helpers/response')
+const { handlePermissionError } = require('../helpers/response')
 const moduleLogger = logger.child({ module: 'authMiddleware' });
 const secretKey = process.env.SCHWARM_JWT_SECRET_KEY;
 
@@ -34,7 +33,7 @@ const isAuthenticated = async (req, res, next) => {
     if (data === null) {
       moduleLogger.info('Verification failed. Return error.');
       handlePermissionError(res)
-     return false
+      return false
     }
 
     // get user to verify
