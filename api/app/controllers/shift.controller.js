@@ -1,5 +1,4 @@
-const { handleSuccess, handleInternalError, handleNotFound, handleValidationError } = require('../helpers/response');
-const db = require('../models');
+const { handleValidationError } = require('../helpers/response');
 
 // Create and Save a new Appointment
 exports.create = (req, res) => {
@@ -7,7 +6,7 @@ exports.create = (req, res) => {
   if (validationResponse !== null) {
     return validationResponse;
   }
-
+  return null;
   // Save Appointment in the database
 };
 
@@ -17,6 +16,7 @@ exports.getRange = (req, res) => {
   if (validationResponse !== null) {
     return validationResponse;
   }
+  return null;
 };
 
 // Update a Appointment by the id in the request
@@ -25,6 +25,7 @@ exports.update = (req, res) => {
   if (validationResponse !== null) {
     return validationResponse;
   }
+  return null;
 };
 
 // Delete a Appointment with the specified id in the request
@@ -33,4 +34,5 @@ exports.delete = (req, res) => {
   if (validationResponse !== null) {
     return validationResponse;
   }
+  return null;
 };

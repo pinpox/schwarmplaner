@@ -1,14 +1,8 @@
-const {
-  handleValidationError,
-  handleSuccess,
-  handleInternalError,
-  handleCustomValidationError
-} = require('../helpers/response');
+const { handleValidationError, handleSuccess, handleInternalError } = require('../helpers/response');
 const db = require('../models');
 
 const { User } = db;
 const { logger } = require('../helpers/logger');
-const { response } = require('express');
 
 const moduleLogger = logger.child({ module: 'user route' });
 
@@ -22,32 +16,32 @@ exports.create = (req, res) => {
   if (!req.body.email) {
     handleInternalError(res, 'missing data');
     moduleLogger.error('no email in data');
-    return;
+    return null;
   }
   if (!req.body.surname) {
     handleInternalError(res, 'missing data');
     moduleLogger.error('no surname in data');
-    return;
+    return null;
   }
   if (!req.body.lastname) {
     handleInternalError(res, 'missing data');
     moduleLogger.error('no lastname in data');
-    return;
+    return null;
   }
   if (!req.body.phone) {
     handleInternalError(res, 'missing data');
     moduleLogger.error('no phone in data');
-    return;
+    return null;
   }
   if (!req.body.role) {
     handleInternalError(res, 'missing data');
     moduleLogger.error('no role in data');
-    return;
+    return null;
   }
   if (!req.body.type) {
     handleInternalError(res, 'missing data');
     moduleLogger.error('no type in data');
-    return;
+    return null;
   }
 
   User.findOrCreate({ where: req.body })
@@ -66,6 +60,7 @@ exports.create = (req, res) => {
     .catch(error => {
       moduleLogger.debug(error);
     });
+  return null;
 };
 
 exports.findByCalendarId = (req, res) => {
@@ -73,6 +68,7 @@ exports.findByCalendarId = (req, res) => {
   if (validationResponse !== null) {
     return validationResponse;
   }
+  return null;
 };
 
 exports.userExists = (req, res) => {
@@ -84,8 +80,8 @@ exports.userExists = (req, res) => {
   const reqEmail = req.query.email;
 
   if (!reqEmail) {
-    handleInternalError(res, 'no email in query paramter');
-    moduleLogger.error('no email in query paramter');
+    handleInternalError(res, 'no email in query parameter');
+    moduleLogger.error('no email in query parameter');
     return null;
   }
 
@@ -116,6 +112,7 @@ exports.userExists = (req, res) => {
     .catch(error => {
       moduleLogger.debug(error);
     });
+  return null;
 };
 
 exports.valid = (req, res) => {
@@ -128,15 +125,15 @@ exports.valid = (req, res) => {
 
   if (!reqSurname) {
     handleInternalError(res, 'missing parameter');
-    moduleLogger.error('no surname in query paramter');
-    return;
+    moduleLogger.error('no surname in query parameter');
+    return null;
   }
   const reqId = req.query.id;
 
   if (!reqId) {
     handleInternalError(res, 'missing parameter');
-    moduleLogger.error('no id in query paramter');
-    return;
+    moduleLogger.error('no id in query parameter');
+    return null;
   }
   User.findAll({
     where: {
@@ -163,4 +160,5 @@ exports.valid = (req, res) => {
     .catch(error => {
       moduleLogger.debug(error);
     });
+  return null;
 };

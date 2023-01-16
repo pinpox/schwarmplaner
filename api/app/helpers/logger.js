@@ -5,7 +5,7 @@ const formatOut = bformat({ outputMode: 'short' });
 const packageJson = require('../../package.json');
 
 const logger = bunyan.createLogger({
-  name: 'schwarmvogel api',
+  name: 'schwarmplaner api',
   version: packageJson.version,
   stream: formatOut,
   level: process.env.NODE_ENV === 'development' ? bunyan.DEBUG : bunyan.INFO
