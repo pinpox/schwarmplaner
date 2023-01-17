@@ -1,7 +1,7 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { faker } from '@faker-js/faker';
-import { logger } from './logger';
-import { createUser } from '../services/user.service';
+const { faker } = require('@faker-js/faker');
+const { createUser } = require('../services/user.service');
+const { logger } = require('./logger');
 
 const moduleLogger = logger.child({ module: 'util helper' });
 
@@ -51,4 +51,4 @@ async function fillDB() {
   moduleLogger.info('database filled with dummy data');
 }
 
-export default { getIPAddress, fillDB };
+module.exports = { getIPAddress, fillDB };

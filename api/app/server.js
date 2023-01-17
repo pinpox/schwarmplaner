@@ -38,7 +38,7 @@ app.use(express.urlencoded({ extended: true })); /* bodyParser.urlencoded() is d
 const db = require('./models');
 
 const { handleSuccess, handleNotFound } = require('./helpers/response');
-const { fillDB } = require('./helpers/util').default;
+const { fillDB } = require('./helpers/util');
 
 const generateDebugData = false;
 
